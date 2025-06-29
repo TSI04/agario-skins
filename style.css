@@ -1,269 +1,553 @@
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
 
+        :root {
+            --primary-bg: #0a0a0a;
+            --secondary-bg: #1a1a1a;
+            --accent-bg: #2a2a2a;
+            --hover-bg: #3a3a3a;
+            --text-primary: #ffffff;
+            --text-secondary: #cccccc;
+            --border-color: #404040;
+            --accent-color: #cf8700;
+            --success-color: #188700;
+            --success-hover: #0e4800;
+            --danger-color: #640000;
+            --shadow-dark: rgba(0, 0, 0, 0.8);
+            --shadow-glow: rgba(255, 255, 255, 0.1);
+            --gradient-loader: linear-gradient(135deg, #080808, #353535);
+            --transition-fast: 0.2s ease;
+            --transition-smooth: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.85)), 
+                        url('https://wallpapercave.com/wp/wp3993654.png');
+            background-color: var(--primary-bg);
+            background-position: center;
+            background-attachment: fixed;
+            background-size: cover;
+            font-family: 'Ubuntu', sans-serif;
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Enhanced Golden Section */
         .gg {
-            background-color: rgb(207, 135, 0);
-            font-family: 'Consolas', 'Lucida Console', sans-serif;
-            display: block;
+            background: linear-gradient(135deg, var(--accent-color), #b8771a);
+            font-family: 'Consolas', 'Lucida Console', monospace;
+            display: flex;
+            flex-direction: column;
             width: 100%;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 0 0 20px 20px;
+            box-shadow: 0 4px 20px var(--shadow-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+
+        .gg-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            letter-spacing: 0.3em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gg-info-shell {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .gg-info {
+            max-width: 60%;
+            min-width: 300px;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        /* Modern Loader */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: var(--gradient-loader);
+            display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            place-content: center;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
         }
-        .gg-title {
-            font-size: 38px;
-            display: block;
-            text-align: center;
-            letter-spacing: 4px;
-        } .gg-info-shell {
+
+        .loadertxt {
+            font-family: 'Ubuntu', sans-serif;
+            color: var(--text-primary);
+            font-size: clamp(1.2rem, 3vw, 1.5rem);
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            margin-top: 2rem;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
+        }
+
+        .loaderimg {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            box-shadow: 0 0 30px var(--shadow-dark), 0 0 60px rgba(207, 135, 0, 0.3);
+            animation: spin 2s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Enhanced Top Bar */
+        .top-bar {
+            background: var(--primary-bg);
             width: 100%;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            box-shadow: 0 2px 10px var(--shadow-dark);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(10px);
+        }
+
+        .tab {
+            background: var(--accent-bg);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 500;
+            height: 100%;
+            min-width: 180px;
             display: flex;
             align-items: center;
             justify-content: center;
-            text-align: center;
-        } 
-        .gg-info {
-            margin-top: 10px;
-            display: block;
-            width: 60%;
+            cursor: pointer;
+            transition: all var(--transition-smooth);
+            position: relative;
+            border-right: 1px solid var(--border-color);
         }
 
-.loader {
-    display: block;
-    position: absolute;
-    background: linear-gradient(50deg,rgb(8, 8, 8), rgb(53, 53, 53));
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    place-content: center;
-}
+        .tab::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background: var(--accent-color);
+            transition: width var(--transition-smooth);
+        }
 
-.loadertxt {
-    display: block;
-    font-family: 'Ubuntu';
-    color: #fff;
-    font-size: 24px;
-    text-shadow: #fff 0 0 5px;
-}
+        .tab:hover {
+            background: var(--hover-bg);
+            transform: translateY(-2px);
+        }
 
-.loaderimg {
-    border-radius: 100%;
-    box-shadow: 0 0 10px #000;
-}
+        .tab:hover::before {
+            width: 100%;
+        }
 
-.prv {
-  font-size: 14px;
-  font-family: 'Ubuntu', sans-serif;
-  position: absolute;
-  right: 1.1%;
-  top: 1.1%;
-  color: #fff;
-}
+        .tab.selected {
+            background: linear-gradient(135deg, #e6e6e6, #f0f0f0);
+            color: var(--primary-bg);
+            font-weight: 700;
+        }
 
-.topimg {
-     position: absolute;
-     left: 50%;
-     top: .2%;
-}
+        .tab.selected::before {
+            width: 100%;
+            background: var(--accent-color);
+        }
 
-.top-bar {
-    background-color: rgb(10,10,10);
-    width: 100%;
-    height: 40px;
-}
-.tab {
-    float: left;
-    background-color: rgb(40,40,40);
-    color: #fff;
-    font-size: 18px;
-    font-family: 'Ubuntu', sans-serif;
-    height: 40px;
-    width: 180px;
+        /* Enhanced Cards */
+        .vs-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: flex-start;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
 
-    display: flex;
-    text-align: center;
-    align-items: center;
-    justify-content: center;
-}
-.tab:hover {
-    cursor: pointer;
-    background-color: rgb(80,80,80);
-}
-.tab.selected:hover {
-    cursor: pointer;
-    background-color: rgb(255,255,255);
-}
-.selected {
-    background-color: rgb(230, 230, 230);
-    color: #000;
-}
+        .card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 200px;
+            padding: 1.5rem;
+            background: var(--secondary-bg);
+            border-radius: 20px;
+            border: 2px solid var(--border-color);
+            transition: all var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
 
-a {
-    text-decoration: none;
-}
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent, rgba(207, 135, 0, 0.1), transparent);
+            opacity: 0;
+            transition: opacity var(--transition-smooth);
+        }
 
-.ext {
-    display: block;
-    text-align: -webkit-center;
-}
+        .card:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: var(--accent-color);
+            box-shadow: 0 20px 40px var(--shadow-dark), 0 0 20px rgba(207, 135, 0, 0.3);
+        }
 
-.ext-image {
-    float: left;
-    margin: 15px;
-}
+        .card:hover::before {
+            opacity: 1;
+        }
 
-.ext-card:hover {
-    background-color: rgb(24, 121, 0);
-    border: rgb(14, 72, 0) solid 2px;
-}
+        .card-image {
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 3px solid var(--text-primary);
+            box-shadow: 0 0 20px var(--shadow-dark);
+            transition: all var(--transition-smooth);
+            object-fit: cover;
+        }
 
-.ext-card {
-    display: inline-block;
-    margin: 0;
-    width: 380px;
-    height: 110px;
-    background-color: rgb(20, 20, 20);
-    border: rgb(10,10,10) 2px solid;
-    margin: 15px;
-    border-radius: 15px;
-}
+        .card:hover .card-image {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 30px var(--shadow-dark), 0 0 20px var(--accent-color);
+        }
 
-.ext-name {
-    display: block;
-    font-family: 'Ubuntu', sans-serif;
-    color: #fff;
-    font-size: 26px;
-    font-weight: 700;
-    margin: 15px;
-    text-align: left;
-}
+        .skinName {
+            color: var(--text-primary);
+            font-family: 'Ubuntu', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            text-align: center;
+            margin-top: 1rem;
+            text-shadow: 2px 2px 4px var(--shadow-dark);
+            transition: all var(--transition-smooth);
+            position: relative;
+            z-index: 1;
+        }
 
-.ext-desc {
-    display: block;
-    font-family: 'Ubuntu', sans-serif;
-    color: #fff;
-    font-size: 13px;
-    font-weight: 300;
-    margin: -10px 20px 0px 62px;
-    text-align: left;
-}
+        .card:hover .skinName {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
 
-.this-splitter {
-    display: block;
-    text-align: center;
-    font-family: 'Ubuntu', sans-serif;
-    color: #000;
-    font-size: 28px;
-    background-color: rgb(255,255,255);
-    padding: 5px;
-    font-weight: 900;
-    margin-top: 10px;
-}
+        /* Enhanced Extensions Section */
+        .ext {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
 
-.usrc {
-    display: block;
-    margin-top: 5px;
-    width: 100%;
-    height: 20px;
-    font-family: 'ubuntu', sans-serif;
-    color: #fff;
-    font-weight: 700;
-    background-color: rgb(10,10,10);
-}
+        .ext-card {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            max-width: 500px;
+            height: auto;
+            min-height: 120px;
+            background: var(--secondary-bg);
+            border: 2px solid var(--border-color);
+            border-radius: 15px;
+            margin: 1rem;
+            padding: 1.5rem;
+            transition: all var(--transition-smooth);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
 
-.cpu {
-    cursor: pointer;
-    display: block;
-    margin-top: 40px;
-    width: 100%;
-    height: 50px;
-    background-color: rgb(30,30,30);
-    border: 1px #fff solid;
-    color: #fff;
-    font-size: 24px;
-    font-family: 'Ubuntu',sans-serif;
-}
+        .ext-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(24, 121, 0, 0.2), transparent);
+            transition: left var(--transition-smooth);
+        }
 
+        .ext-card:hover {
+            background: var(--success-color);
+            border-color: var(--success-hover);
+            transform: translateX(10px);
+            box-shadow: 0 10px 30px var(--shadow-dark);
+        }
 
-.title {
-    font-family: 'Ubuntu', sans-serif;
-    color: #fff;
-    font-weight: 700;
-    font-size: 46px;
-    display: block;
-    text-align: center;
-    margin-top: 0px;
-    padding: 10px;
+        .ext-card:hover::before {
+            left: 100%;
+        }
 
-    background-color: rgb(100, 0, 0);
-}
+        .ext-image {
+            width: 60px;
+            height: 60px;
+            margin-right: 1.5rem;
+            border-radius: 10px;
+            flex-shrink: 0;
+        }
 
-.hd, .n {
-    font-family: 'Ubuntu', sans-serif;
-    color: #fff;
-    font-size: 17px;
-    display: block;
-    text-align: center;
-    margin-top: 5px;
+        .ext-content {
+            flex: 1;
+        }
 
-    -webkit-text-stroke-width: 3px;
-    -webkit-text-stroke-color:#000;
-    paint-order: stroke fill;
-}
+        .ext-name {
+            font-family: 'Ubuntu', sans-serif;
+            color: var(--text-primary);
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
 
-.top {
-    width: 100%;
-    height: 160px;
-}
+        .ext-desc {
+            font-family: 'Ubuntu', sans-serif;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
 
-* {
-    padding: 0;
-    margin: 0;
-}
+        /* Enhanced Buttons and Interactive Elements */
+        .cpu {
+            cursor: pointer;
+            display: block;
+            margin: 2rem auto;
+            width: 100%;
+            max-width: 400px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-bg), var(--hover-bg));
+            border: 2px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            font-family: 'Ubuntu', sans-serif;
+            font-weight: 700;
+            transition: all var(--transition-smooth);
+            position: relative;
+            overflow: hidden;
+        }
 
-body {
-    background-image: url('https://wallpapercave.com/wp/wp3993654.png');
-    background-color: rgba(0,0,0,0.9);
-    width: 100%;
-    height: 100%;
-    background-position: center;
-    background-attachment: fixed;
-    background-size: cover;
-    background-blend-mode: overlay;
-}
+        .cpu::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left var(--transition-smooth);
+        }
 
-.skinName {
-    color: #fff;
-    font-family: 'Ubuntu';
-    display: block;
-    text-align: center;
-    font-size: 24px;
-    -webkit-text-stroke-width: 3px;
-    -webkit-text-stroke-color:#000;
-    paint-order: stroke fill;
-    text-shadow: #000 0 0 10px;
-}
+        .cpu:hover {
+            background: linear-gradient(135deg, var(--hover-bg), var(--accent-color));
+            border-color: var(--accent-color);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px var(--shadow-dark);
+        }
 
-.card {
-    display: inline-block;
-    margin: 10px;
-    width: 180px;
-    height: 180px;
-    margin: 2.5rem;
-}
+        .cpu:hover::before {
+            left: 100%;
+        }
 
-.card-image {
-    width: 180px;
-    height: 180px;
-    border-radius: 100%;
-    border: 1px #fff solid;
-    box-shadow: #000000 0 0 12px;
-}
+        .cpu:active {
+            transform: translateY(-1px);
+        }
 
-.vs-list {
-    display: block;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
-}
+        /* Enhanced Title and Headers */
+        .title {
+            font-family: 'Ubuntu', sans-serif;
+            color: var(--text-primary);
+            font-weight: 900;
+            font-size: clamp(2rem, 5vw, 3rem);
+            text-align: center;
+            margin: 2rem 0;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--danger-color), #8b0000);
+            border-radius: 15px;
+            text-shadow: 2px 2px 4px var(--shadow-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .title::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.1) 50%, transparent 70%);
+            animation: shimmer 4s infinite;
+        }
+
+        .this-splitter {
+            display: block;
+            text-align: center;
+            font-family: 'Ubuntu', sans-serif;
+            color: var(--primary-bg);
+            font-size: 1.8rem;
+            background: linear-gradient(135deg, #ffffff, #f0f0f0);
+            padding: 1rem;
+            font-weight: 900;
+            margin: 2rem 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px var(--shadow-dark);
+            position: relative;
+        }
+
+        .hd, .n {
+            font-family: 'Ubuntu', sans-serif;
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-align: center;
+            margin: 1rem 0;
+            text-shadow: 2px 2px 4px var(--shadow-dark);
+            line-height: 1.4;
+        }
+
+        .prv {
+            font-size: 0.9rem;
+            font-family: 'Ubuntu', sans-serif;
+            position: fixed;
+            right: 1.5rem;
+            top: 1.5rem;
+            color: var(--text-secondary);
+            background: var(--secondary-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            backdrop-filter: blur(10px);
+            z-index: 200;
+        }
+
+        .usrc {
+            display: block;
+            margin: 1rem 0;
+            width: 100%;
+            height: 40px;
+            font-family: 'Ubuntu', sans-serif;
+            color: var(--text-primary);
+            font-weight: 700;
+            background: var(--primary-bg);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .gg {
+                padding: 1rem;
+            }
+            
+            .gg-info {
+                max-width: 90%;
+            }
+            
+            .tab {
+                min-width: 120px;
+                font-size: 1rem;
+            }
+            
+            .vs-list {
+                gap: 1rem;
+                padding: 1rem;
+            }
+            
+            .card {
+                width: 160px;
+                padding: 1rem;
+            }
+            
+            .card-image {
+                width: 120px;
+                height: 120px;
+            }
+            
+            .ext-card {
+                flex-direction: column;
+                text-align: center;
+                height: auto;
+                padding: 1rem;
+            }
+            
+            .ext-image {
+                margin-right: 0;
+                margin-bottom: 1rem;
+            }
+        }
+
+        /* Accessibility Improvements */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Focus States for Accessibility */
+        .tab:focus,
+        .card:focus,
+        .ext-card:focus,
+        .cpu:focus {
+            outline: 2px solid var(--accent-color);
+            outline-offset: 2px;
+        }
+
+        /* Smooth Scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
